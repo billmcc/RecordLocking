@@ -1,0 +1,1 @@
+﻿model.Contacts.events.validate = function(event) {	debugger;	response = ds.Locking.REST_Save_Record(this);};

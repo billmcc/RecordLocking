@@ -1,0 +1,1 @@
+﻿model.Contacts.entityMethods.load4DRec = function() {	//var isLocked = this.lock();	var isLocked = true;    return isLocked;};model.Contacts.entityMethods.load4DRec.scope = "public"; 
