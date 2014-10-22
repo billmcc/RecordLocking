@@ -7,11 +7,16 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 
 // eventHandlers// @lock
 
+
+
 	documentEvent.onLoad = function documentEvent_onLoad (event)// @startlock
 	{// @endlock
-		debugger;
 		sources.contacts.all();
 		loggedInAs();
+	
+//		kss.event.create({eventName: "contactsChangedEvent", action: function(params){
+//	    	alert(params.prop1);
+//		}});
 	};// @lock
 	
 	var formOnFocusHandler = function (event)

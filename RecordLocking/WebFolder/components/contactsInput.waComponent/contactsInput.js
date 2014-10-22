@@ -10,8 +10,21 @@ function constructor (id) {
 	this.name = 'contactsInput';
 	// @endregion// @endlock
 
+	var contactId = '';
+	this.contactsChanged = function (contactID){
+		
+		sources.contacts.query('ID = '+ contactId);
+		
+	};
+	
 	this.load = function (data) {// @lock
 
+//	kss.addListener({listenerName: "contactsChangedListener",
+//		eventName: "contactsChangedEvent",
+//		callback: function (e){
+//			
+//		}
+//	});
 	// @region namespaceDeclaration// @startlock
 	var lastNameInput = {};	// @textField
 	var firstNameInput = {};	// @textField
@@ -32,7 +45,7 @@ function constructor (id) {
 
 	saveBtn.click = function saveBtn_click (event)// @startlock
 	{// @endlock
-		source.contacts.save();
+		$comp.sources.contacts.save();
 	};// @lock
 
 	// @region eventManager// @startlock
