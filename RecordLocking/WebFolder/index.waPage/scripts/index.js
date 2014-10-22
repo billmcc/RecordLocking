@@ -12,9 +12,7 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 	documentEvent.onLoad = function documentEvent_onLoad (event)// @startlock
 	{// @endlock
 		sources.contacts.all();
-		loggedInAs();
-	
-
+		
 	};// @lock
 	
 	var formOnFocusHandler = function (event)
@@ -29,15 +27,6 @@ WAF.onAfterInit = function onAfterInit() {// @lock
             	alert("Record in use in 4D");
             }
         });
-	};
-	
-	var loggedInAs = function ()
-	{
-		var user;
-		user = WAF.directory.currentUser();
-		if(user) {
-			$('#userLabel').html( "Logged in as " + user.userName );
-		}
 	};
 	
 	$$('loginComponent').loadComponent({

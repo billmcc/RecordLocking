@@ -1,1 +1,1 @@
-﻿model.Contacts.events.validate = function(event) {	debugger;	response = ds.Locking.REST_Save_Record(this);};
+﻿model.Contacts.events.validate = function(event) {	// Add your code here;};model.Contacts.events.save = function(event) {	// Add your code here;};

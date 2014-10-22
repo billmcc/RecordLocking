@@ -34,19 +34,35 @@ function constructor (id) {
 	loginBtn.click = function loginBtn_click (event)// @startlock
 	{// @endlock
 		var username, password;
-		username = $$('usernameInput').getValue();
-		password = $$('passwordInput').getValue();
+		username = $$(getHtmlId('usernameInput')).getValue();
+		password = $$(getHtmlId('passwordInput')).getValue();
 		WAF.directory.login( username, password,
 		{
             onSuccess:function(event){
+            	debugger;
             	loggedInAs();              
             },
             onError: function(event){
+            	debugger;
 				loggedInAs(); 
             }
 		});
-
+		debugger;
 	};// @lock
+	
+	//Functions
+	var loggedInAs = function ()
+	{
+		var user;
+		user = WAF.directory.currentUser();
+		if(user) {
+
+			$$(getHtmlId('userLabel')).setValue( "Logged in as " + user.userName );
+		}
+		else {
+			$$(getHtmlId('userLabel')).setValue( "Please log in" );
+		}
+	};
 
 	// @region eventManager// @startlock
 	WAF.addListener(this.id + "_logoutBtn", "click", logoutBtn.click, "WAF");
