@@ -14,9 +14,7 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 		sources.contacts.all();
 		loggedInAs();
 	
-//		kss.event.create({eventName: "contactsChangedEvent", action: function(params){
-//	    	alert(params.prop1);
-//		}});
+
 	};// @lock
 	
 	var formOnFocusHandler = function (event)

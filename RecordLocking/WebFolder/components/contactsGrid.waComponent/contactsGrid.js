@@ -21,10 +21,6 @@ function constructor (id) {
 	contactsEvent.onCurrentElementChange = function contactsEvent_onCurrentElementChange (event)// @startlock
 	{// @endlock
 	
-//		kss.event.trigger({
-//			eventName: "contactsChangedEvent",
-//			params: {prop1: "test253"}
-//		});
 		
 	};// @lock
 
