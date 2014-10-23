@@ -18,6 +18,13 @@ function constructor (id) {
 	// @endregion// @endlock
 
 	// eventHandlers// @lock
+	
+	kss.event.addListener({eventName: "onAppLoad", 
+		callback: function(){
+			debugger;
+			loggedInAs();
+		}
+	});
 
 	logoutBtn.click = function logoutBtn_click (event)// @startlock
 	{// @endlock
@@ -40,14 +47,24 @@ function constructor (id) {
 		{
             onSuccess:function(event){
             	debugger;
-            	loggedInAs();              
+            	if(event.result) {
+            		loggedInAs();
+            	}
+            	else {
+            		WAF.directory.logout({
+            			onSuccess:function(event){
+            				loggedInAs();
+            			}
+            		});
+            	} 
+            	              
             },
             onError: function(event){
             	debugger;
+          		WAF.directory.logout();
 				loggedInAs(); 
             }
 		});
-		debugger;
 	};// @lock
 	
 	//Functions
@@ -56,12 +73,13 @@ function constructor (id) {
 		var user;
 		user = WAF.directory.currentUser();
 		if(user) {
-
 			$$(getHtmlId('userLabel')).setValue( "Logged in as " + user.userName );
 		}
 		else {
 			$$(getHtmlId('userLabel')).setValue( "Please log in" );
 		}
+		$$(getHtmlId('usernameInput')).setValue("");
+		$$(getHtmlId('passwordInput')).setValue("");
 	};
 
 	// @region eventManager// @startlock
@@ -70,7 +88,7 @@ function constructor (id) {
 	// @endregion// @endlock
 
 	};// @lock
-
+	
 
 }// @startlock
 return constructor;

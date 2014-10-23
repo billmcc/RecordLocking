@@ -8,47 +8,37 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 // eventHandlers// @lock
 
 
-
+	kss.event.create({eventName: "onAppLoad"});
+	
 	documentEvent.onLoad = function documentEvent_onLoad (event)// @startlock
 	{// @endlock
-		sources.contacts.all();
+		$$('loginComponent').loadComponent({
+			path: '/components/tempoLogin.waComponent',
+			onSuccess:function(event){
+				debugger;
+	            kss.event.trigger({eventName: "onAppLoad"});              
+	        }
+		});
+
+		$$('contactsGridComponent').loadComponent({
+			path: '/components/contactsGrid.waComponent',
+			onSuccess:function(event){
+	            	              
+	        }
+		});
+
+		$$('contactsInputComponent').loadComponent({
+			path: '/components/contactsInput.waComponent',
+			onSuccess:function(event){
+	            	              
+	        }
+		});
 		
+		debugger;
+		sources.contacts.all();	
 	};// @lock
 	
-	var formOnFocusHandler = function (event)
-	{
-		sources.contacts.load4DRec(
-        {
-            onSuccess:function(event){
-            	              
-            },
-            onError: function(event){
-				$$('cancelBtn').focus();
-            	alert("Record in use in 4D");
-            }
-        });
-	};
 	
-	$$('loginComponent').loadComponent({
-		path: '/components/tempoLogin.waComponent',
-		onSuccess:function(event){
-            	              
-        }
-	});
-
-	$$('contactsGridComponent').loadComponent({
-		path: '/components/contactsGrid.waComponent',
-		onSuccess:function(event){
-            	              
-        }
-	});
-
-	$$('contactsInputComponent').loadComponent({
-		path: '/components/contactsInput.waComponent',
-		onSuccess:function(event){
-            	              
-        }
-	});
 
 
 // @region eventManager// @startlock
