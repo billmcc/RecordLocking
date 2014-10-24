@@ -8,7 +8,7 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 // eventHandlers// @lock
 
 
-	kss.event.create({eventName: "onAppLoad"});
+	kss.event.create({eventName: "onAppLoad", action: function(){}});
 	
 	documentEvent.onLoad = function documentEvent_onLoad (event)// @startlock
 	{// @endlock

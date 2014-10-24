@@ -19,7 +19,7 @@ function constructor (id) {
 
 	// eventHandlers// @lock
 	
-	kss.event.addListener({eventName: "onAppLoad", 
+	kss.event.addListener({listenerName:"loginAppLoad" ,eventName: "onAppLoad", 
 		callback: function(){
 			debugger;
 			loggedInAs();
