@@ -13,19 +13,11 @@ function constructor (id) {
 	this.load = function (data) {// @lock
 
 	// @region namespaceDeclaration// @startlock
-	var contactsEvent = {};	// @dataSource
 	// @endregion// @endlock
 
 	// eventHandlers// @lock
 
-	contactsEvent.onCurrentElementChange = function contactsEvent_onCurrentElementChange (event)// @startlock
-	{// @endlock
-	
-		
-	};// @lock
-
 	// @region eventManager// @startlock
-	WAF.addListener("contacts", "onCurrentElementChange", contactsEvent.onCurrentElementChange, "WAF");
 	// @endregion// @endlock
 
 	};// @lock

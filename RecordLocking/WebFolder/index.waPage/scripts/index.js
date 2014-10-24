@@ -15,7 +15,7 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 		$$('loginComponent').loadComponent({
 			path: '/components/tempoLogin.waComponent',
 			onSuccess:function(event){
-				debugger;
+				//debugger;
 	            kss.event.trigger({eventName: "onAppLoad"});              
 	        }
 		});
@@ -34,7 +34,6 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 	        }
 		});
 		
-		debugger;
 		sources.contacts.all();	
 	};// @lock
 	

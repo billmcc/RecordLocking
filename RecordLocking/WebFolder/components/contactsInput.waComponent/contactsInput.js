@@ -23,7 +23,7 @@ function constructor (id) {
 
 	lastNameInput.focus = function lastNameInput_focus (event)// @startlock
 	{// @endlock
-		debugger;
+		//debugger;
 		kss.fn.formOnFocusHandler(event);
 	};// @lock
 
