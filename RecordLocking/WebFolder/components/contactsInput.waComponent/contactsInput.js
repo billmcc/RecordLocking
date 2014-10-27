@@ -24,13 +24,13 @@ function constructor (id) {
 	lastNameInput.focus = function lastNameInput_focus (event)// @startlock
 	{// @endlock
 		//debugger;
-		kss.fn.formOnFocusHandler('');
+		tempo.fn.formOnFocusHandler('');
 	};// @lock
 
 	firstNameInput.focus = function firstNameInput_focus (event)// @startlock
 	{// @endlock
 		debugger;
-		kss.fn.formOnFocusHandler('');
+		tempo.fn.formOnFocusHandler('');
 	};// @lock
 
 	saveBtn.click = function saveBtn_click (event)// @startlock
