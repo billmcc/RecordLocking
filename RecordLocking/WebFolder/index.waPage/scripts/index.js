@@ -16,7 +16,7 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 		kss.event.create({
 			eventName: "onFocusHandlerEvent", 
 			action: function (e){
-				
+				console.log('onFocusHandlerEvent event ran I');
 			}
 		});
 		
