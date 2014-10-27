@@ -12,6 +12,14 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 	
 	documentEvent.onLoad = function documentEvent_onLoad (event)// @startlock
 	{// @endlock
+		
+		kss.event.create({
+			eventName: "onFocusHandlerEvent", 
+			action: function (e){
+				
+			}
+		});
+		
 		$$('loginComponent').loadComponent({
 			path: '/components/tempoLogin.waComponent',
 			onSuccess:function(event){
