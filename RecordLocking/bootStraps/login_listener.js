@@ -1,1 +1,1 @@
-﻿directory.setLoginListener("kss.fn.loginListener","Admin");
+﻿directory.setLoginListener("loginListener","Admin");

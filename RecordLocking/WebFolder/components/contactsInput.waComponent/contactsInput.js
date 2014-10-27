@@ -24,7 +24,7 @@ function constructor (id) {
 	lastNameInput.focus = function lastNameInput_focus (event)// @startlock
 	{// @endlock
 		//debugger;
-		kss.fn.formOnFocusHandler('');
+		kss.fn.formOnFocusHandler('event1');
 	};// @lock
 
 	firstNameInput.focus = function firstNameInput_focus (event)// @startlock

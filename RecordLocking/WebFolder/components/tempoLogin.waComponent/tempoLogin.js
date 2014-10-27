@@ -46,7 +46,7 @@ function constructor (id) {
 		WAF.directory.login( username, password,
 		{
             onSuccess:function(event){
-            	//debugger;
+            	debugger;
             	if(event.result) {
             		loggedInAs();
             	}
@@ -60,7 +60,7 @@ function constructor (id) {
             	              
             },
             onError: function(event){
-            	//debugger;
+            	debugger;
           		WAF.directory.logout();
 				loggedInAs(); 
             }

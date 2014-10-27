@@ -23,7 +23,7 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 		$$('contactsGridComponent').loadComponent({
 			path: '/components/contactsGrid.waComponent',
 			onSuccess:function(event){
-	            	              
+	        	sources.contacts.all();
 	        }
 		});
 
@@ -34,7 +34,9 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 	        }
 		});
 		
-		sources.contacts.all();	
+		//debugger;
+		
+		
 	};// @lock
 	
 	
