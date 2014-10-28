@@ -46,14 +46,21 @@ function constructor (id) {
 		
 		lockTimeOutCheck = function() {
 			debugger;
+			var currentDate, expireDate, elapsed;
 			user = sources.locking.getSession();
+			currentDate = new Date();
+			expireDate = new Date(user.expiration);
+			elapsed = parseInt(user.lifeTime-((Math.abs(expireDate - currentDate))/1000),10);
+			if(elapsed > 30) {
+				sources.contacts.save();
+			}
 		};
 		loadResponse = sources.contacts.load4DRec();
 		if(loadResponse.success) {
 			$$(getHtmlId('inputStatusLabel')).setValue('Read Write');
 			$$(this.id).setReadOnly(false);
 			$$(getHtmlId('saveBtn')).enable();
-			var timerID = setTimeout(lockTimeOutCheck, 5000)			
+			var timerID = setTimeout(lockTimeOutCheck, 35000)			
 		}
 		else if(loadResponse.msg > "") {
 			$$(getHtmlId('inputStatusLabel')).setValue( loadResponse.msg );
