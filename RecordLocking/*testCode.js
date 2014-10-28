@@ -1,1 +1,0 @@
-﻿loginByPassword('designer','fj');

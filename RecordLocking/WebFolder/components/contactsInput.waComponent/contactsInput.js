@@ -14,46 +14,68 @@ function constructor (id) {
 	this.load = function (data) {// @lock
 
 	// @region namespaceDeclaration// @startlock
-	var lastNameInput = {};	// @textField
-	var firstNameInput = {};	// @textField
+	var contactsEvent = {};	// @dataSource
 	var saveBtn = {};	// @button
 	// @endregion// @endlock
-	
-	kss.event.addListener({
-		listenerName: "myListener", 
-		eventName: "onFocusHandlerEvent", 
-		callback: function(e){
-			console.log('kss.event.addListener onFocusHandlerEvent');
-			$$(getHtmlId('lockImage')).setValue('/images/lock.png');
-			$("#lockImage").prop("alt", "This is some alt text");
-		}});
-	
+
 	// eventHandlers// @lock
-	
-	
-	lastNameInput.focus = function lastNameInput_focus (event)// @startlock
+
+	contactsEvent.onBeforeCurrentElementChange = function contactsEvent_onBeforeCurrentElementChange (event)// @startlock
 	{// @endlock
-		
-		//tempo.fn.formOnFocusHandler('');
-		kss.event.trigger({eventName: "onFocusHandlerEvent", params: {prop1: "test"}});
+		debugger;
+		if (this.isModified()) {
+			if(confirm("The record has been modified. Do you want to save it?")) {
+				sources.contacts.save();
+			}
+		}   		
 	};// @lock
 
-	firstNameInput.focus = function firstNameInput_focus (event)// @startlock
+	contactsEvent.onCurrentElementChange = function contactsEvent_onCurrentElementChange (event)// @startlock
 	{// @endlock
-		
-		//tempo.fn.formOnFocusHandler('');
-		kss.event.trigger({eventName: "onFocusHandlerEvent", params: {prop1: "test"}});
+		$$(getHtmlId('inputStatusLabel')).setValue( "Read Only" ); //This will become lock and related functionality
+		$$(getHtmlId('saveBtn')).disable();
+		$('.restricted.tbl_contacts').on('focus', formOnFocusHandler);
+
 	};// @lock
+	
+	var formOnFocusHandler;
+	
+	
+	formOnFocusHandler = function () {
+		var loadResponse, lockTimeOutCheck, user, timerID;
+		
+		lockTimeOutCheck = function() {
+			debugger;
+			user = sources.locking.getSession();
+		};
+		loadResponse = sources.contacts.load4DRec();
+		if(loadResponse.success) {
+			$$(getHtmlId('inputStatusLabel')).setValue('Read Write');
+			$$(this.id).setReadOnly(false);
+			$$(getHtmlId('saveBtn')).enable();
+			var timerID = setTimeout(lockTimeOutCheck, 5000)			
+		}
+		else if(loadResponse.msg > "") {
+			$$(getHtmlId('inputStatusLabel')).setValue( loadResponse.msg );
+			$$(getHtmlId('saveBtn')).disable();
+		}
+		else {
+			$$(getHtmlId('inputStatusLabel')).setValue( loadResponse.errorMsg );
+		} 
+	};
 
 	saveBtn.click = function saveBtn_click (event)// @startlock
 	{// @endlock
-		$comp.sources.contacts.save();
+		sources.contacts.save();
 	};// @lock
-
 	
+	//Actions
+
+
+
 	// @region eventManager// @startlock
-	WAF.addListener(this.id + "_lastNameInput", "focus", lastNameInput.focus, "WAF");
-	WAF.addListener(this.id + "_firstNameInput", "focus", firstNameInput.focus, "WAF");
+	WAF.addListener("contacts", "onBeforeCurrentElementChange", contactsEvent.onBeforeCurrentElementChange, "WAF");
+	WAF.addListener("contacts", "onCurrentElementChange", contactsEvent.onCurrentElementChange, "WAF");
 	WAF.addListener(this.id + "_saveBtn", "click", saveBtn.click, "WAF");
 	// @endregion// @endlock
 

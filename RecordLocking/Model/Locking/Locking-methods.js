@@ -1,0 +1,1 @@
+﻿model.Locking.methods.getSession = function() {	var user;	user = currentSession();	return user;};model.Locking.methods.getSession.scope = "public"; 

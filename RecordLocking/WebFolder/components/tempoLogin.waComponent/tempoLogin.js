@@ -18,13 +18,6 @@ function constructor (id) {
 	// @endregion// @endlock
 
 	// eventHandlers// @lock
-	
-	kss.event.addListener({listenerName:"loginAppLoad" ,eventName: "onAppLoad", 
-		callback: function(){
-			//debugger;
-			loggedInAs();
-		}
-	});
 
 	logoutBtn.click = function logoutBtn_click (event)// @startlock
 	{// @endlock
@@ -46,7 +39,6 @@ function constructor (id) {
 		WAF.directory.login( username, password,
 		{
             onSuccess:function(event){
-            	//debugger;
             	if(event.result) {
             		loggedInAs();
             	}
@@ -60,7 +52,6 @@ function constructor (id) {
             	              
             },
             onError: function(event){
-            	//debugger;
           		WAF.directory.logout();
 				loggedInAs(); 
             }
@@ -81,6 +72,8 @@ function constructor (id) {
 		$$(getHtmlId('usernameInput')).setValue("");
 		$$(getHtmlId('passwordInput')).setValue("");
 	};
+	
+	loggedInAs();
 
 	// @region eventManager// @startlock
 	WAF.addListener(this.id + "_logoutBtn", "click", logoutBtn.click, "WAF");
@@ -89,7 +82,8 @@ function constructor (id) {
 
 	};// @lock
 	
-
+	
+	
 }// @startlock
 return constructor;
 })();// @endlock
