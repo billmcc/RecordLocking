@@ -22,8 +22,7 @@ function constructor (id) {
 
 	contactsEvent.onBeforeCurrentElementChange = function contactsEvent_onBeforeCurrentElementChange (event)// @startlock
 	{// @endlock
-		debugger;
-		if (this.isModified()) {
+		if (sources.contacts.getCurrentElement().isTouched()) {
 			if(confirm("The record has been modified. Do you want to save it?")) {
 				sources.contacts.save();
 			}
@@ -33,6 +32,7 @@ function constructor (id) {
 	contactsEvent.onCurrentElementChange = function contactsEvent_onCurrentElementChange (event)// @startlock
 	{// @endlock
 		$$(getHtmlId('inputStatusLabel')).setValue( "Read Only" ); //This will become lock and related functionality
+		$$(getHtmlId('lockImage')).hide();//images/lock.png
 		$$(getHtmlId('saveBtn')).disable();
 		$('.restricted.tbl_contacts').on('focus', formOnFocusHandler);
 
@@ -40,12 +40,11 @@ function constructor (id) {
 	
 	var formOnFocusHandler;
 	
-	
 	formOnFocusHandler = function () {
 		var loadResponse, lockTimeOutCheck, user, timerID;
 		
 		lockTimeOutCheck = function() {
-			debugger;
+		
 			var currentDate, expireDate, elapsed;
 			user = sources.locking.getSession();
 			currentDate = new Date();
@@ -55,20 +54,33 @@ function constructor (id) {
 				sources.contacts.save();
 			}
 		};
-		loadResponse = sources.contacts.load4DRec();
-		if(loadResponse.success) {
-			$$(getHtmlId('inputStatusLabel')).setValue('Read Write');
-			$$(this.id).setReadOnly(false);
-			$$(getHtmlId('saveBtn')).enable();
-			var timerID = setTimeout(lockTimeOutCheck, 35000)			
-		}
-		else if(loadResponse.msg > "") {
-			$$(getHtmlId('inputStatusLabel')).setValue( loadResponse.msg );
-			$$(getHtmlId('saveBtn')).disable();
-		}
-		else {
-			$$(getHtmlId('inputStatusLabel')).setValue( loadResponse.errorMsg );
-		} 
+		
+		var widgetID = this.id;
+		loadResponse = sources.contacts.load4DRec({
+				onSuccess: function(e){
+				
+					if(e.result.success) {
+						
+						$$(getHtmlId('inputStatusLabel')).setValue('Read Write');
+						$$(widgetID).setReadOnly(false);
+						$$(getHtmlId('saveBtn')).enable();
+						var timerID = setTimeout(lockTimeOutCheck, 35000)			
+					}
+					else if(e.result.msg > "") {
+						$$(getHtmlId('lockImage')).show();//images/lock.png
+						$$(getHtmlId('inputStatusLabel')).setValue( e.result.msg );
+						$$(getHtmlId('saveBtn')).disable();
+					}
+					else {
+						$$(getHtmlId('inputStatusLabel')).setValue( loadResponse.errorMsg );
+					}
+					
+					
+				}
+			}
+		
+		);
+		 
 	};
 
 	saveBtn.click = function saveBtn_click (event)// @startlock

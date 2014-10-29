@@ -33,18 +33,22 @@ function constructor (id) {
 
 	loginBtn.click = function loginBtn_click (event)// @startlock
 	{// @endlock
+		
 		var username, password;
 		username = $$(getHtmlId('usernameInput')).getValue();
 		password = $$(getHtmlId('passwordInput')).getValue();
+		
 		WAF.directory.login( username, password,
 		{
             onSuccess:function(event){
             	if(event.result) {
+            		console.log('login success');
             		loggedInAs();
             	}
             	else {
             		WAF.directory.logout({
             			onSuccess:function(event){
+            				console.log('login fail');
             				loggedInAs();
             			}
             		});
