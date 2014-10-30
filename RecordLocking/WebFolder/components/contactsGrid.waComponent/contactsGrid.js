@@ -16,7 +16,11 @@ function constructor (id) {
 	var contactsEvent = {};	// @dataSource
 	// @endregion// @endlock
 
-	sources.contacts.all();
+	sources.contacts.all({
+				onSuccess: function(e){
+					contactsEvent.onCurrentElementChange();
+				}	
+			});
 	// eventHandlers// @lock
 
 	contactsEvent.onCurrentElementChange = function contactsEvent_onCurrentElementChange (event)// @startlock
