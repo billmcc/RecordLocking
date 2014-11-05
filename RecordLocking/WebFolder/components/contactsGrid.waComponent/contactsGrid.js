@@ -15,12 +15,21 @@ function constructor (id) {
 	// @region namespaceDeclaration// @startlock
 	var contactsEvent = {};	// @dataSource
 	// @endregion// @endlock
-
-	sources.contacts.all({
+	
+	$$('contactsInputComponent').loadComponent({
+		path: '/components/contactsInput.waComponent',
+		onSuccess:function(event){
+			sources.contacts.all({
 				onSuccess: function(e){
-					contactsEvent.onCurrentElementChange();
+					kss.event.trigger({eventName: 'onCurrentElementChange', params: this});
+					sources.contacts.cmRESTMethod("REST_Contacts_4DViews", {});
 				}	
-			});
+			});    	              
+        }
+	});
+	
+	
+
 	// eventHandlers// @lock
 
 	contactsEvent.onCurrentElementChange = function contactsEvent_onCurrentElementChange (event)// @startlock

@@ -9,7 +9,9 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 	
 	documentEvent.onLoad = function documentEvent_onLoad (event)// @startlock
 	{// @endlock
-		
+		kss.event.create({eventName: "onCurrentElementChange", action: function(params){
+		}});
+			
 		$$('loginComponent').loadComponent({
 			path: '/components/tempoLogin.waComponent',
 			onSuccess:function(event){
@@ -22,14 +24,7 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 			onSuccess:function(event){
 	                         
 	        }
-		});
-
-		$$('contactsInputComponent').loadComponent({
-			path: '/components/contactsInput.waComponent',
-			onSuccess:function(event){
-	            	              
-	        }
-		});				
+		});					
 				
 	};// @lock
 	

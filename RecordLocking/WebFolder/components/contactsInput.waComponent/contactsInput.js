@@ -22,7 +22,17 @@ function constructor (id) {
 	var entityInfo;
 	entityInfo = {};
 	entityInfo.source = sources.contacts;
+	entityInfo.tableEvent = contactsEvent;
 	entityInfo.primaryKeyAttr = 'ID';
+	
+	var request, response;
+	request = {};
+	request.tableName = "Contacts";
+	//response = sources.locking.callRESTMethod("Locking","REST_isPermitted",request);
+	//alert(response.permitted);
+
+	
+	
 	
 	// eventHandlers// @lock
 
@@ -55,6 +65,7 @@ function constructor (id) {
 		$$(getHtmlId('inputStatusLabel')).setValue( "Read Only" ); //This will become lock and related functionality
 		$$(getHtmlId('lockImage')).hide();//images/lock.png
 		$$(getHtmlId('saveBtn')).disable();
+		$$(getHtmlId('cancelBtn')).focus(true);
 
 		entityInfo.serverRefresh = false;
 		entityInfo.load4DRec = false;
@@ -66,7 +77,6 @@ function constructor (id) {
 		var tablename, loadResponse, lockTimeOutCheck, user, timerID;
 		if(entityInfo.load4DRec === false) {
 			lockTimeOutCheck = function() {
-				debugger;
 				var currentDate, expireDate, elapsed;
 				user = sources.locking.getSession();
 				currentDate = new Date();
@@ -95,6 +105,7 @@ function constructor (id) {
 							$('.restricted.tbl_contacts').each(function( index ) {
 								$$(this.id).setReadOnly(false)	
 							});
+							debugger;
 							var timerID = setTimeout(lockTimeOutCheck, 18000);			
 						}
 						else {
@@ -111,6 +122,11 @@ function constructor (id) {
 		}
 	};
 	
+	kss.event.addListener({listenerName: "onCurrentElementChange", eventName: "onCurrentElementChange", callback: function(){
+		//
+		entityInfo.tableEvent.onCurrentElementChange();
+	}});
+	
 
 	saveBtn.click = function saveBtn_click (event)// @startlock
 	{// @endlock
@@ -125,9 +141,8 @@ function constructor (id) {
 	
 	//Actions
 	$('.restricted.tbl_contacts').on('focus', formOnFocusHandler);
-
-
-
+	
+	
 	// @region eventManager// @startlock
 	WAF.addListener(this.id + "_cancelBtn", "click", cancelBtn.click, "WAF");
 	WAF.addListener("contacts", "onBeforeCurrentElementChange", contactsEvent.onBeforeCurrentElementChange, "WAF");
