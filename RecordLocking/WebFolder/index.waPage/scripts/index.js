@@ -24,7 +24,19 @@ WAF.onAfterInit = function onAfterInit() {// @lock
 			onSuccess:function(event){
 	                         
 	        }
-		});					
+		});	
+		
+		$$(getHtmlId('component1')).loadComponent({
+			path: '/components/test.waComponent',
+			onSuccess:function(event){
+			$$('component2').loadComponent({
+			path: '/components/test2.waComponent',
+			onSuccess:function(event){
+				           
+	        }
+		});       
+	        }
+		});				
 				
 	};// @lock
 	
